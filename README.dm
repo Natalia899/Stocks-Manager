@@ -46,7 +46,7 @@ SERVER ROUTES
   
   A get route to /stock/:stocknName - This route should take a stockName parameter
  This will be the route that makes a call to external API and get [{ stockName:
-                                                                                                   ??????????
+                                                                                                   ?????????? what do we need????
                                                                       }]
 
 
@@ -57,7 +57,7 @@ SERVER ROUTES
 
   A put route to /stock/:userId/:stockId - this route should take the user's ID and stockId and remove the stock from favorites DB
 
-  !!!Canceled ----- A get route to /stoksComp - this route shoul make the api request to external api and return 10 stocks with the biggest market cap.
+  !!!Optional (need to find free API with statistics)----- A get route to /stoksComp - this route shoul make the api request to external api and return 10 stocks with the biggest market cap.
 
 
 
@@ -102,6 +102,7 @@ CONTROLLER (main.js)
 
     removeFromFavorites button - call removeFavorite(stockName, userID) => render favorites array
 
+css
 
 the end
 
