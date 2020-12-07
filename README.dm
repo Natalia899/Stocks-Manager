@@ -27,11 +27,11 @@ DB SCHEMAs
     balance - a number
     
   DB schema in your FavoriteStocks.js file should have the following:
-    userId: a number
+    userId: string
     favorites: [{
     id:'',
     name:'',
-    info:''
+    closePrice:''
     }]
 
 EXTERNAL API
