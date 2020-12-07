@@ -57,8 +57,26 @@ SERVER ROUTES
 
   A put route to /stock/:userId/:stockId - this route should take the user's ID and stockId and remove the stock from favorites DB
 
-  !!!Optional (need to find free API with statistics)----- A get route to /stoksComp - this route shoul make the api request to external api and return 10 stocks with the biggest market cap.
+  A get route to /stocksComp - this route should get the users favorites from db and send get request to external API and get [{ stockName:  , closePriceFor Today:   }]
+              var axios = require("axios").default;
 
+              var options = {
+                method: 'GET',
+                    url: 'https://seeking-alpha.p.rapidapi.com/symbols/get-summary',
+               params: {symbols: 'aapl,tsla'},
+              headers: {
+               'x-rapidapi-key': '97324c71dfmshe45b2ea28e41b6dp1cfa35jsn65cf4f91d039',
+                  'x-rapidapi-host': 'seeking-alpha.p.rapidapi.com'
+                    }
+                };
+
+                 axios.request(options).then(function (response) {
+	                    console.log(response.data);
+                   }).catch(function (error) {
+	             console.error(error);
+                    });
+
+  
 
 
 
@@ -82,11 +100,17 @@ MODEL (manager.js):
 
      removeFavorite(stockName, userID) - sends PUT request to /stock/:userId/:stockId => splice to favoriteStocks array
 
+     compareFavorites (userId) -  sends GET request to /stocksComp => send res arr to user
+
+
+
      
 VIEW (Renderer.js):
-    renderFavorites - receives user's favoriteStocks array and appends in html
+    renderFavorites(favoriteStocks) - receives user's favoriteStocks array and appends in html
 
-    renderStockInfo - receives res object with stock info and appends it to html 
+    renderStockInfo(stockInfo) - receives res object with stock info and appends it to html (graph)
+
+    renderFavComp(favoritesCompare) - receives array with favorites names and close prices and appends it to html (graph)
 
 CONTROLLER (main.js)
     
@@ -101,6 +125,8 @@ CONTROLLER (main.js)
    saveAsFavorite button - call addFavorite(stockName, userID) => render favorites Array
 
     removeFromFavorites button - call removeFavorite(stockName, userID) => render favorites array
+
+    compareFavorites button - call renderFavComp (userID) => render favCompare
 
 css
 
