@@ -3,7 +3,7 @@ const api = require('./server/routes/api')
 const app = express()
 const path = require('path')
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/StocksDB', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/StocksDB', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
 
 
 app.use(express.json())

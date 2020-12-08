@@ -52,4 +52,16 @@ router.get('/login/:userName/:passWord', async (req, res) =>{
 	})
 })
 
+
+
+router.put('/stockAdd/:userId/:stockName', async (req, res) => {
+	const { userId, stockName } =  req.params
+
+	const userID = User.findById({_id: userId}, (err, user) => {
+		user.favorites.push(stockName)
+		user.save()
+	})
+	res.send(userID.favorites)
+})
+
 module.exports = router
