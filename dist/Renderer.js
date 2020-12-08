@@ -1,5 +1,13 @@
 class Renderer {
+    renderBoard(){
+        const source = $('#board-template').html()
+        const template = Handlebars.compile(source)
+       // const data = template({favoriteStocks})
+        $('#login-container').empty()
+        $('#board-container').append(template)
+    }
     renderFavorites(favoriteStocks) {
+        console.log('do u render?');
         const source = $('#stock-template').html()
         const template = Handlebars.compile(source)
         const data = template({favoriteStocks})

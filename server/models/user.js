@@ -10,7 +10,7 @@ const userSchema = new Schema({
 	username: { type: String, required: true},
     password: { type: String, required: true },
     balance: Number,
-    favorites: [{type: Schema.Types.ObjectId, ref: 'Stock'}]
+    favorites: []
 })
 
 userSchema.pre('save', function(next) {
@@ -45,7 +45,8 @@ const User = mongoose.model("User", userSchema)
 let user1 = new User ({
     username: "Roberto",
     password: "1234",
-    balance: 956
+    balance: 956,
+    favorites: ['Apple', 'Tesla', 'Microsoft']
 })
 
 let user2 = new User ({
@@ -75,7 +76,8 @@ let user5 = new User ({
 let user6 = new User ({
     username: "Dan",
     password: "7892",
-    balance: 152
+    balance: 152,
+    
 })
 
 const usersDB = [user1, user2, user3, user4, user5, user6]

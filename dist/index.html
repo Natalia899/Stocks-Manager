@@ -16,6 +16,48 @@
         <input id='password' type='text' placeholder="Password">
         <button id='submit'>Submit</button>
     </div>
+<div id='board-container'></div>
+
+<script id="board-template" type="text/x-handlebars-template">
+
+    <div id='search-container'>
+        <input id='stockSearch' type='text' placeholder="Stock name">
+        <button id='search'>Search</button>
+    </div>
+    <button id='logout'>Exit</button>
+
+</script>
+
+
+    <div id='favorites-container'></div>
+    
+    <div id='graph-container'>
+        <div id='stockInfo-container'></div>
+    </div>
+
+
+
+    <script id="stock-template" type="text/x-handlebars-template">
+        {{#each userFavorites}} 
+     <ul class='usersFavorites'>
+         <li class='favorite'> {{name}}
+            <span class='remove'>
+                <i class="tiny material-icons">remove_circle</i>
+            </span>      
+        </li>
+     </ul>
+    
+        </div>
+      {{/each}}
+    </script>
+
+    <script id="name-template" type="text/x-handlebars-template">
+       <h3 class='name'> {{this.name}} </h3>
+       <span class='add'>
+        <i class="tiny material-icons">add_circle</i>
+    </span>
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src='./handlebars/dist/handlebars.js'></script>
     <script src="./jquery/dist/jquery.js"></script>

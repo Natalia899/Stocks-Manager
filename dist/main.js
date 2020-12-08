@@ -5,8 +5,11 @@ $('#submit').on('click', async () => {
     const username = $('#username').val()
     const password = $('#password').val()
     const userFavorites = await manager.logIn(username, password)
-    window.location.href = "http:./dashboard.html"
-    render.renderFavorites(userFavorites)
+    console.log('what?');
+    render.renderBoard()
+    //window.location.href = "http:./dashboard.html"
+   // location.href = "http:./dashboard.html"
+    render.renderFavorites(manager.userFavorites)
 })
 
 $('#favorites-container').on('click', '.favorite', async function () {
