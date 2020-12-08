@@ -8,6 +8,7 @@ class Renderer {
     }
     renderFavorites(favoriteStocks) {
         console.log('do u render?');
+        console.log(favoriteStocks);
         const source = $('#stock-template').html()
         const template = Handlebars.compile(source)
         const data = template({favoriteStocks})

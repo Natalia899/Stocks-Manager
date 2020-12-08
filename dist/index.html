@@ -6,7 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Stocks</title>
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
@@ -16,21 +22,21 @@
         <input id='password' type='text' placeholder="Password">
         <button id='submit'>Submit</button>
     </div>
-<div id='board-container'></div>
+    <div id='board-container'></div>
 
-<script id="board-template" type="text/x-handlebars-template">
+    <script id="board-template" type="text/x-handlebars-template">
 
-    <div id='search-container'>
-        <input id='stockSearch' type='text' placeholder="Stock name">
-        <button id='search'>Search</button>
+    <div class='search-container'>
+        <input class='stockSearch' type='text' placeholder="Stock name">
+        <button class='search'>Search</button>
     </div>
-    <button id='logout'>Exit</button>
+    
 
 </script>
 
 
     <div id='favorites-container'></div>
-    
+
     <div id='graph-container'>
         <div id='stockInfo-container'></div>
     </div>
@@ -38,9 +44,9 @@
 
 
     <script id="stock-template" type="text/x-handlebars-template">
-        {{#each userFavorites}} 
+        {{#each favoriteStocks}} 
      <ul class='usersFavorites'>
-         <li class='favorite'> {{name}}
+         <li class='favorite'> {{this}}
             <span class='remove'>
                 <i class="tiny material-icons">remove_circle</i>
             </span>      
