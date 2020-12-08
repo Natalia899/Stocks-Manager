@@ -5,7 +5,6 @@ class StocksManager {
     }
 
    async logIn(userName, password){
-       console.log('here?');
       let userFavoritesDb = await $.get(`/login/${userName}/${password}`)
       console.log(userFavoritesDb[0].favorites);
        this.userFavorites = userFavoritesDb[0].favorites

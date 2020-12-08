@@ -18,9 +18,12 @@ $('#favorites-container').on('click', '.favorite', async function () {
     render.renderStockInfo(stockInfo) 
 })
 
-$('#search').on('click', async function() {
-  const stockName = $('#stockSearch').val()
+$('#board-container').on('click', '.search', async function() {
+    console.log('hjjkjghgffg');
+  const stockName = $(this).closest('.search-container').find('.stockSearch').val()
+  console.log(stockName);
   let stockInfo = await  manager.getStockInfo(stockName)
+  console.log(stockInfo);
   render.renderStockInfo(stockInfo) 
 })
 
