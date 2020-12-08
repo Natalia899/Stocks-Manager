@@ -35,5 +35,9 @@ $('#favorites-container').on('click', '.remove', async function () {
     render.renderFavorites(manager.userFavorites) 
 })
 
+$('#logout').on('click', function () {
+    window.location.href = "http:./index.html"
+})
+
 
 // cancelled ?????compareFavorites button - call renderFavComp (userID) => render favCompare

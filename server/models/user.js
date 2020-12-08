@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const FavoriteStock = require("../models/favoriteStocks")
 const Schema = mongoose.Schema
 
 const bcrypt = require('bcrypt')
@@ -8,7 +9,8 @@ SALT_WORK_FACTOR = 10;
 const userSchema = new Schema({
 	username: { type: String, required: true},
     password: { type: String, required: true },
-	balance: Number
+    balance: Number,
+    favorites: [{type: Schema.Types.ObjectId, ref: 'Stock'}]
 })
 
 userSchema.pre('save', function(next) {
@@ -39,4 +41,47 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 };
 
 const User = mongoose.model("User", userSchema)
+
+let user1 = new User ({
+    username: "Roberto",
+    password: "1234",
+    balance: 956
+})
+
+let user2 = new User ({
+    username: "Moshe",
+    password: "9874",
+    balance: 145
+})
+
+let user3 = new User ({
+    username: "Ofri",
+    password: "3652",
+    balance: 97
+})
+
+let user4 = new User ({
+    username: "Avital",
+    password: "5698",
+    balance: 452
+})
+
+let user5 = new User ({
+    username: "Shani",
+    password: "3657",
+    balance: 458
+})
+
+let user6 = new User ({
+    username: "Dan",
+    password: "7892",
+    balance: 152
+})
+
+const usersDB = [user1, user2, user3, user4, user5, user6]
+//usersDB.forEach(u=> u.save())
+
+
+// favorite1.save()
+
 module.exports = User
