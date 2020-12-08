@@ -1,0 +1,29 @@
+{
+  "name": "stocks-project",
+  "version": "1.0.0",
+  "description": "INTRO",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Natalia899/Stocks-Manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Natalia899/Stocks-Manager/issues"
+  },
+  "homepage": "https://github.com/Natalia899/Stocks-Manager#readme",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "bcrypt": "^5.0.0",
+    "express": "^4.17.1",
+    "handlebars": "^4.7.6",
+    "jquery": "^3.5.1",
+    "materialize": "^1.0.0",
+    "mongoose": "^5.11.5",
+    "request": "^2.88.2"
+  }
+}

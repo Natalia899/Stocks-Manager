@@ -24,14 +24,17 @@ DB SCHEMAs
   DB schema in your Users.js file should have the following:
     name - a string
     password -(npm - bcrypt)!!!!!
-    balance - a number
+   ??? balance - a number
+
     
   DB schema in your FavoriteStocks.js file should have the following:
     userId: string
     favorites: [{
     id:'',
     name:'',
-    closePrice:''
+    closePrices: [{date: by day   , closePrice}]
+
+
     }]
 
 EXTERNAL API
@@ -39,15 +42,13 @@ EXTERNAL API
   https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo
   key - 3TCIP7M1UFFYGITK 
 
-  https://www.alphavantage.co/documentation/ - APIs are grouped into four categories: (1) Time Series Stock APIs, (2) Fundamental Data, (3) Physical and Digital/Crypto Currencies (e.g., Bitcoin), and (4) Technical Indicators. 
- !!!! find API for comparing
+  https://seeking-alpha.p.rapidapi.com/symbols/get-summary',
 
+ 
 SERVER ROUTES
   
   A get route to /stock/:stocknName - This route should take a stockName parameter
- This will be the route that makes a call to external API and get [{ stockName:
-                                                                                                   ?????????? what do we need????
-                                                                      }]
+ This will be the route that makes a call to external API and get (see schema)
 
 
   A get route to /login/:username/:userPassword - this route should take a username and UserPassword parameters and return all users favorites from DB or return error if 
