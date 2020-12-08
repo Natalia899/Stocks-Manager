@@ -1,4 +1,13 @@
+const manager = new StocksManager()
+const render = new Renderer()
 
+$('#submit').on('click', async () => {
+    const username = $('#username').val()
+    const password = $('#password').val()
+    const userFavorites = await manager.login(username,password)
+    window.location.href = "http:./dashboard.html"
+    render.renderFavorites(userFavorites)
+})
 
 
 
