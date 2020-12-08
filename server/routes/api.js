@@ -64,4 +64,19 @@ router.put('/stockAdd/:userId/:stockName', async (req, res) => {
 	res.send(userID.favorites)
 })
 
+
+
+router.put('/stockDel/:userId/:stockName', (req, res) => {
+	const { userId, stockName } =  req.params
+	
+	const userID = User.findById({_id: userId}, (err, user) => {
+		const favArr = user.favorites.indexOf(stockName)
+		user.favorites.splice(favArr, 1)
+		user.save()
+		
+	})
+	res.send(userID.favorites)
+})
+
+
 module.exports = router
