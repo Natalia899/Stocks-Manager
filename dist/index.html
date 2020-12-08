@@ -10,9 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-    <!-- Compiled and minified JavaScript -->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
@@ -22,18 +19,8 @@
         <input id='password' type='text' placeholder="Password">
         <button id='submit'>Submit</button>
     </div>
+
     <div id='board-container'></div>
-
-    <script id="board-template" type="text/x-handlebars-template">
-
-    <div class='search-container'>
-        <input class='stockSearch' type='text' placeholder="Stock name">
-        <button class='search'>Search</button>
-    </div>
-    
-
-</script>
-
 
     <div id='favorites-container'></div>
 
@@ -41,7 +28,12 @@
         <div id='stockInfo-container'></div>
     </div>
 
-
+    <script id="board-template" type="text/x-handlebars-template">
+    <div class='search-container'>
+        <input class='stockSearch' type='text' placeholder="Stock name">
+        <button class='search'>Search</button>
+    </div>
+    </script>
 
     <script id="stock-template" type="text/x-handlebars-template">
         {{#each favoriteStocks}} 
@@ -52,13 +44,12 @@
             </span>      
         </li>
      </ul>
-    
         </div>
       {{/each}}
     </script>
 
     <script id="name-template" type="text/x-handlebars-template">
-       <h3 class='name'> {{this.name}} </h3>
+       <h6 class='name'> {{stockInfo.name}} </h6>
        <span class='add'>
         <i class="tiny material-icons">add_circle</i>
     </span>

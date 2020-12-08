@@ -4,50 +4,45 @@ class StocksManager {
         this.userId = {}
     }
 
-   async logIn(userName, password){
-      let userFavoritesDb = await $.get(`/login/${userName}/${password}`)
-      console.log(userFavoritesDb[0].favorites);
-       this.userFavorites = userFavoritesDb[0].favorites
-       console.log(this.userFavorites);
-      this.userId = userFavoritesDb[0]._id
-        
+    async logIn(userName, password) {
+        let userFavoritesDb = await $.get(`/login/${userName}/${password}`)
+        this.userFavorites = userFavoritesDb.userFavorites
+        this.userId = userFavoritesDb.userId
     }
 
-   async  getStockInfo(stockName) {
-       let stockInfo = await $.get(`/stock/${stockName}`)
-       console.log('manager');
-       console.log(stockInfo);
-       return stockInfo
+    async getStockInfo(stockName) {
+        let stockInfo = await $.get(`/stock/${stockName}`)
+        return stockInfo
 
     }
 
-  async addFavorite(stockName, userId) {
+    async addFavorite(stockName, userId) {
         let newFavorites = await $.ajax({
             url: `/stockAdd/${userId}/${stockName}`,
             type: 'PUT',
-            success: function (result ) {
+            success: function (result) {
                 console.log(result);
             }
-        }) 
+        })
 
         this.userFavorites = newFavorites
     }
 
-  async removeFavorite(stockName, userId) {
-    let newFavorites = await $.ajax({
-        url: `/stockDel/${userId}/${stockName}`,
-        type: 'PUT',
-        success: function (result ) {
-            console.log(result);
-        }
-    }) 
+    async removeFavorite(stockName, userId) {
+        let newFavorites = await $.ajax({
+            url: `/stockDel/${userId}/${stockName}`,
+            type: 'PUT',
+            success: function (result) {
+                console.log(result);
+            }
+        })
 
-    this.userFavorites = newFavorites  
+        this.userFavorites = newFavorites
     }
 
-   async compareFavorites(userId) {
-       let compStocks = await $.get(`/stocksComp/${userId}`)
-       return compStocks
+    // async compareFavorites(userId) {
+    //     let compStocks = await $.get(`/stocksComp/${userId}`)
+    //     return compStocks
 
-    }
+    // }
 }

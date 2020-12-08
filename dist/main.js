@@ -5,7 +5,6 @@ $('#submit').on('click', async () => {
     const username = $('#username').val()
     const password = $('#password').val()
     const userFavorites = await manager.logIn(username, password)
-    console.log('what?');
     render.renderBoard()
     //window.location.href = "http:./dashboard.html"
    // location.href = "http:./dashboard.html"
@@ -19,15 +18,13 @@ $('#favorites-container').on('click', '.favorite', async function () {
 })
 
 $('#board-container').on('click', '.search', async function() {
-    console.log('hjjkjghgffg');
   const stockName = $(this).closest('.search-container').find('.stockSearch').val()
-  console.log(stockName);
   let stockInfo = await  manager.getStockInfo(stockName)
-  console.log(stockInfo);
   render.renderStockInfo(stockInfo) 
 })
 
 $('#stockInfo-container').on('click', '.add', async function () {
+    console.log('do u want to add??');
     const stockName = $(this).     text()
     const userId = manager.userId
      manager.addFavorite(stockName, userId)
@@ -36,14 +33,15 @@ $('#stockInfo-container').on('click', '.add', async function () {
 
 $('#favorites-container').on('click', '.remove', async function () {
     const stockName = $(this).closest('.favorite').text()
+    console.log(stockName);
     const userId = manager.userId
     let data = await  manager.removeFavorite(stockName, userId)
     render.renderFavorites(manager.userFavorites) 
 })
 
-$('#logout').on('click', function () {
-    window.location.href = "http:./index.html"
-})
+// $('#logout').on('click', function () {
+//     window.location.href = "http:./index.html"
+// })
 
 
 // cancelled ?????compareFavorites button - call renderFavComp (userID) => render favCompare
