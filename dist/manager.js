@@ -1,14 +1,14 @@
 class StocksManager {
     constructor() {
         this.userFavorites = ['hfhf', 'jhfghd']
-        this.userId = {}
+        this.userId = {id: 2356}
     }
 
    async logIn(userName, password){
        console.log('here?');
-       let userFavoritesDb = await $.get(`/login/${userName}/${password}`)
-       this.userFavorites = userFavoritesDb.favorites
-       this.userId = userFavoritesDb.id
+      // let userFavoritesDb = await $.get(`/login/${userName}/${password}`)
+       //this.userFavorites = userFavoritesDb.favorites
+      // this.userId = userFavoritesDb.id
 
     }
 
