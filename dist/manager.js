@@ -35,8 +35,7 @@ class StocksManager {
         }
     }) 
 
-    this.userFavorites = newFavorites 
-        
+    this.userFavorites = newFavorites  
     }
 
    async compareFavorites(userId) {
