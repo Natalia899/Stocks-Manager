@@ -54,7 +54,7 @@ SERVER ROUTES
   A get route to /login/:username/:userPassword - this route should take a username and UserPassword parameters and return all users favorites from DB or return error if 
                                                    user does not exist or password is not correct
 
-  A post route to /stock/:stockName - This route should take stockName and user Id from the body, and push it to users favorites array on DB
+  A put route to /stock/:stockName - This route should take stockName and user Id from the body, and push it to users favorites array on DB
 
   A put route to /stock/:userId/:stockId - this route should take the user's ID and stockId and remove the stock from favorites DB
 
