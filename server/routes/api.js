@@ -37,12 +37,14 @@ router.get('/stock/:stockName/:timeSeries', async (req, res) => {
 		res.send(days)
 
 	}if(timeSeries == 'weekly'){
+		console.log('i am hereeeeee');
 		for(let i in stockWeekly){
 			const weeklyClose = {Date: i, Price: stockWeekly[i][`4. close`]} 
 			if(weeks.info.length < 4){
 				weeks.info.push(weeklyClose)
 			}
 		}
+		
 		res.send(weeks)
 
 	}if(timeSeries == 'monthly'){

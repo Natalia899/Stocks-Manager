@@ -23,7 +23,8 @@ class Renderer {
         const data = template({ stockInfo })
         $('#generalInfo-container').empty().append(data)
     }
-
+    
+    
 
 
 

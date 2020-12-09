@@ -1,7 +1,7 @@
 
 const manager = new StocksManager()
 const renderm = new Renderer()
-//const chart = chartSetup()
+const chart = chartSetup()
 
 
 $('#submit').on('click', async () => {
@@ -35,16 +35,25 @@ $('#favorites-container').on('click', '.favoriteName', async function () {
 
 $('#board-container').on('click', '.search', async function () {
     const stockName = $(this).closest('.search-container').find('.stockSearch').val()
-    let chartInfo = await manager.getChartInfo(stockName)
+    const time = 'weekly'
+    let chartInfo = await manager.getChartInfo(stockName, time)
     let generalInfo = await manager.getStockInfo(stockName)
-    console.log(chartInfo);
-    console.log(generalInfo);
+        await manager.getStockInfo(stockName);
+        chart.appendReleventElements("#chart-container");
+        await chart.renderChart(stockName, manager.stockData.yAxis, manager.stockData.xAxis);
+    })
+    
+    //const timeSeria = $(this).
+   // let chartInfo = await manager.getChartInfo(stockName, timeSeria)
+    //let generalInfo = await manager.getStockInfo(stockName)
+    // console.log(chartInfo);
+    // console.log(generalInfo);
     //renderStockInfo(generalInfo)
     
     // chart.appendReleventElements("#chart-container")
     // chart.renderChart(stockName, stockInfo.prices, stockInfo.dates)
    // render.renderStockInfo(stockInfo)
-})
+//})
 
 $('#stockInfo-container').on('click', '.add', async function () {
     console.log('add main');
