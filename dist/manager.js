@@ -13,7 +13,6 @@ class StocksManager {
     async getStockInfo(stockName) {
         let stockInfo = await $.get(`/stock/${stockName}`)
         return stockInfo
-
     }
 
     async addFavorite(stockName, userId) {
@@ -24,7 +23,6 @@ class StocksManager {
                 console.log(result);
             }
         })
-
         this.userFavorites = newFavorites
     }
 
@@ -33,7 +31,6 @@ class StocksManager {
             url: `/stockDel/${userId}/${stockName}`,
             type: 'PUT',
             success: function (result) {
-                console.log(result);
             }
         })
 

@@ -1,0 +1,18 @@
+body {
+    background-color: rgb(234, 244, 244);
+    font-family: 'Montserrat', sans-serif;
+    padding: 5%;
+}
+
+.stockSearch {
+    text-transform: uppercase;
+}
+
+#login-container {
+    width: 20%;
+}
+
+#main-container {
+    display: grid;
+    min-height: 600px;
+}

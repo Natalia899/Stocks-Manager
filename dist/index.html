@@ -11,15 +11,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div id='login-container'>
         <input id='username' type='text' placeholder="Your name">
         <input id='password' type='text' placeholder="Password">
-        <button id='submit'>Submit</button>
+        <span id='submit'>
+            <a class="waves-effect waves-light btn-small">Submit</a></span>
     </div>
-
+<div id='main-container'>
     <div id='board-container'></div>
 
     <div id='favorites-container'></div>
@@ -27,11 +30,11 @@
     <div id='graph-container'>
         <div id='stockInfo-container'></div>
     </div>
-
+</div>
     <script id="board-template" type="text/x-handlebars-template">
     <div class='search-container'>
         <input class='stockSearch' type='text' placeholder="Stock name">
-        <button class='search'>Search</button>
+        <span class='search'> <a class="waves-effect waves-light btn-small">Search</a></span>
     </div>
     </script>
 
