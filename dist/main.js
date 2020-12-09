@@ -1,15 +1,18 @@
+
 const manager = new StocksManager()
-const render = new Renderer()
+const renderm = new Renderer()
+const chart = chartSetup()
+
 
 $('#submit').on('click', async () => {
     const username = $('#username').val()
     const password = $('#password').val()
     const userFavorites = await manager.logIn(username, password)
     if (userFavorites) {
-        render.renderBoard()
-        render.renderFavorites(manager.userFavorites)
+        renderm.renderBoard()
+        renderm.renderFavorites(manager.userFavorites)
     } else {
-        render.renderError()
+        renderm.renderError()
     }
 })
 
@@ -19,7 +22,7 @@ $('#signUp').on('click', async () => {
     const password = $('#password').val()
     const newUser = await manager.signUp(username, password)
     console.log(newUser);
-    render.renderBoard()
+    renderm.renderBoard()
 
 })
 
@@ -27,16 +30,21 @@ $('#favorites-container').on('click', '.favoriteName', async function () {
     const stockName = $(this).text()
     console.log(stockName);
     let stockInfo = await manager.getStockInfo(stockName)
-    render.renderStockInfo(stockInfo)
+    renderm.renderStockInfo(stockInfo)
 })
 
 $('#board-container').on('click', '.search', async function () {
     const stockName = $(this).closest('.search-container').find('.stockSearch').val()
     let stockInfo = await manager.getStockInfo(stockName)
-    render.renderStockInfo(stockInfo)
+    console.log(stockInfo);
+
+    chart.appendReleventElements("#chart-container")
+    chart.renderChart(stockName, stockInfo.prices, stockInfo.dates)
+   // render.renderStockInfo(stockInfo)
 })
 
 $('#stockInfo-container').on('click', '.add', async function () {
+    console.log('add main');
     const stockName = $(this).closest('#stockInfo-container').find('.name').text()
     const userId = manager.userId
     await manager.addFavorite(stockName, userId)
@@ -52,9 +60,4 @@ $('#favorites-container').on('click', '.remove', async function () {
     render.renderFavorites(manager.userFavorites)
 })
 
-// $('#logout').on('click', function () {
-//     window.location.href = "http:./index.html"
-// })
 
-
-// cancelled ?????compareFavorites button - call renderFavComp (userID) => render favCompare

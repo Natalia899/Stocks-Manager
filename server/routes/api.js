@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt')
 const User = require("../models/user")
 const FavoriteStock = require("../models/favoriteStocks")
 
+
 const apiKey = 'AN42IASXL414IVFG'
 
 
@@ -69,10 +70,12 @@ router.post('/login/:userName/:passWord', async (req, res) => {
 		password: passWord,
 	})
 	const saveUser = await user.save()
+	console.log(saveUser);
 	res.send(saveUser)
 })
 
 router.put('/stockAdd/:userId/:stockName', async (req, res) => {
+	console.log('put server');
 	const { userId, stockName } = req.params
 	const userID = User.findById({ _id: userId }, (err, user) => {
 		user.favorites.push(stockName)
@@ -83,6 +86,7 @@ router.put('/stockAdd/:userId/:stockName', async (req, res) => {
 
 router.put('/stockDel/:userId/:stockName', (req, res) => {
 	const { userId, stockName } = req.params
+	console.log('put server');
 	const userID = User.findById({ _id: userId }, (err, user) => {
 		const favArr = user.favorites.indexOf(stockName)
 		user.favorites.splice(favArr, 1)

@@ -1,7 +1,7 @@
 class StocksManager {
     constructor() {
         this.userFavorites = []
-        this.userId = {}
+        this.userId = ''
         this.userName = ''
     }
 
@@ -25,10 +25,18 @@ class StocksManager {
     async getStockInfo(stockName) {
         let stockInfo = await $.get(`/stock/${stockName}`)
         console.log(stockInfo);
-        return stockInfo
+        let x = stockInfo.info.map(el => el.date)
+        let y = stockInfo.info.map(el => el.price)
+        console.log(y)
+        return {
+            dates: x,
+            prices: y
+        }
     }
 
     async addFavorite(stockName, userId) {
+        console.log('i  am manager')
+      
         let newFavorites = await $.ajax({
             url: `/stockAdd/${userId}/${stockName}`,
             type: 'PUT',
