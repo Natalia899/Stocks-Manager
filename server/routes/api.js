@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const axios = require("axios")
 const bcrypt = require('bcrypt')
-//const yahooFinance = require('yahoo-finance');
+const yahooFinance = require('yahoo-finance');
 const User = require("../models/user")
 const FavoriteStock = require("../models/favoriteStocks")
 
@@ -27,24 +27,54 @@ router.get('/stock/:stockName', async (req, res) => {
 	res.send(months)
 })
 
-// Basic info of stock \\
 router.get('/stockInfo/:stockName', async (req, res) => {
 	const { stockName } = req.params
 	const stockSymbolSearch = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${stockName}&apikey=${apiKey}`)
 	const stockSymbol = await stockSymbolSearch.data.bestMatches[0][`1. symbol`]
 	const companyName = await stockSymbolSearch.data.bestMatches[0][`2. name`]
-	const stockApi = await axios.get(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stockSymbol}&apikey=${apiKey}`)
-	const stockInfo = {
-		Name: companyName,
-		Symbol: stockApi.data[`Global Quote`][`01. symbol`],
-		Price: stockApi.data[`Global Quote`][`05. price`],
-		Open: stockApi.data[`Global Quote`][`02. open`],
-		High: stockApi.data[`Global Quote`][`03. high`],
-		Low: stockApi.data[`Global Quote`][`04. low`],
-		Close: stockApi.data[`Global Quote`][`08. previous close`],
-		Volume: stockApi.data[`Global Quote`][`06. volume`]
-	}
-	res.send(stockInfo)
+	
+	await yahooFinance.quote({
+		symbol: stockSymbol,
+		modules: ['recommendationTrend', 'summaryDetail', 'earnings','summaryProfile', 'earnings'],
+	}, function(err, quote) {
+		
+			const marketCap = quote.summaryDetail.marketCap
+
+			const analystsReco3months = quote.recommendationTrend.trend[3]
+
+			const quarterEstimate = {
+				"Quarter Estimate": quote.earnings.earningsChart.currentQuarterEstimate,
+				"Estimate Date": quote.earnings.earningsChart.currentQuarterEstimateDate,
+				"Estimate Year": quote.earnings.earningsChart.currentQuarterEstimateYear
+			}
+	
+			// const dividend = {
+			// 	"dividend yield": quote.summaryDetail.dividendYield,
+			// 	"ex dividend date": quote.summaryDetail.exDividendDate
+			// }
+			// console.log(dividend);
+			// console.log(quote.summaryDetail);
+			
+			const dataPrice = {
+				"current price": quote.summaryDetail.previousClose,
+				"52 weeks low": quote.summaryDetail.fiftyTwoWeekLow,
+				"52 weeks high": quote.summaryDetail.fiftyTwoWeekHigh
+			}
+			
+			const earnings = quote.earnings.financialsChart.quarterly[3]
+
+			const companyDetails = {
+				"city": quote.summaryProfile.city,
+				"state": quote.summaryProfile.state,
+				"country": quote.summaryProfile.country,
+				"phone": quote.summaryProfile.phone,
+				"website": quote.summaryProfile.website,
+				"industry": quote.summaryProfile.industry,
+				"sector": quote.summaryProfile.sector,
+				"full Time Employees": quote.summaryProfile.fullTimeEmployees
+			}
+		res.send([companyName, stockSymbol, marketCap, analystsReco3months, quarterEstimate, dataPrice, earnings, companyDetails])
+	})
 })
 
 router.get('/login/:userName/:passWord', async (req, res) => {
@@ -52,9 +82,7 @@ router.get('/login/:userName/:passWord', async (req, res) => {
 	const user = await User.find({ username: userName })
 	const checkIfPasswordMatch = await bcrypt.compare(passWord, user[0].password, (err, result) => {
 		if (result) {
-			const userId = user[0]._id
-			const userFavorites = user[0].favorites;
-			res.send({ userId, userFavorites })
+			res.send(user[0])
 		} else {
 			res.send('Password is incorrect')
 		}
