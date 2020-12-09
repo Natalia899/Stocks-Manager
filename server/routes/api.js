@@ -49,12 +49,14 @@ router.get('/stockInfo/:stockName', async (req, res) => {
 				"Estimate Year": quote.earnings.earningsChart.currentQuarterEstimateYear
 			}
 	
-			// const dividend = {
-			// 	"dividend yield": quote.summaryDetail.dividendYield,
-			// 	"ex dividend date": quote.summaryDetail.exDividendDate
-			// }
-			// console.log(dividend);
-			// console.log(quote.summaryDetail);
+			const dividend = {
+				"dividend yield": "0%",
+				"ex dividend date": "0%" 
+			}
+			if(quote.summaryDetail.dividendYield && quote.summaryDetail.exDividendDate != null){
+				dividend[`dividend yield`] = quote.summaryDetail.dividendYield
+				dividend[`ex dividend date`] = quote.summaryDetail.exDividendDate
+			}
 			
 			const dataPrice = {
 				"current price": quote.summaryDetail.previousClose,
@@ -74,7 +76,7 @@ router.get('/stockInfo/:stockName', async (req, res) => {
 				"sector": quote.summaryProfile.sector,
 				"full Time Employees": quote.summaryProfile.fullTimeEmployees
 			}
-		res.send([companyName, stockSymbol, marketCap, analystsReco3months, quarterEstimate, dataPrice, earnings, companyDetails])
+		res.send([companyName, stockSymbol, marketCap, analystsReco3months, quarterEstimate, dividend, dataPrice, earnings, companyDetails])
 	})
 })
 
