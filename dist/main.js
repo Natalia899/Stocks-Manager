@@ -5,13 +5,19 @@ $('#submit').on('click', async () => {
     const username = $('#username').val()
     const password = $('#password').val()
     const userFavorites = await manager.logIn(username, password)
-    console.log(userFavorites);
     if (userFavorites) {
         render.renderBoard()
         render.renderFavorites(manager.userFavorites)
     } else {
         render.renderError()
     }
+})
+
+$('#signIn').on('click', async () => {
+    const username = $('#username').val()
+    const password = $('#password').val()
+    const log = await manager.signIn(username, password)
+    
 })
 
 $('#favorites-container').on('click', '.favoriteName', async function () {

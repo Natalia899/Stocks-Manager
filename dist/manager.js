@@ -12,8 +12,8 @@ class StocksManager {
         return this.userFavorites
     }
 
-    async signIn(userName, password) {
-        
+    signIn(userName, passWord) {
+        $.post(`/login/${userName}/${passWord}`)
     }
 
     async getStockInfo(stockName) {

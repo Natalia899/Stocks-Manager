@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const axios = require("axios")
 const bcrypt = require('bcrypt')
-const yahooFinance = require('yahoo-finance');
+//const yahooFinance = require('yahoo-finance');
 const User = require("../models/user")
 const FavoriteStock = require("../models/favoriteStocks")
 
