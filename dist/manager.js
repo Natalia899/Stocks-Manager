@@ -6,12 +6,14 @@ class StocksManager {
 
     async logIn(userName, password) {
         let userFavoritesDb = await $.get(`/login/${userName}/${password}`)
+        console.log(userFavoritesDb);
         this.userFavorites = userFavoritesDb.userFavorites
         this.userId = userFavoritesDb.userId
     }
 
     async getStockInfo(stockName) {
         let stockInfo = await $.get(`/stock/${stockName}`)
+        console.log(stockInfo);
         return stockInfo
     }
 

@@ -15,4 +15,30 @@ body {
 #main-container {
     display: grid;
     min-height: 600px;
+    grid-template-columns: repeat (6, 1fr);
+    grid-template-areas: "b b b b b b"
+                        "g g g g g f"
+                        "g g g g g f"
+                        "g g g g g f"
+}
+#board-container{
+    grid-area: b;
+}
+.fv {
+    grid-area: f;
+    border: solid rgb(92, 103, 125) 3px;
+    border-radius: 5px;
+    color: rgb(51, 65, 92);
+    
+}
+#graph-container {
+    grid-area: g; 
+}
+
+.headers {
+    font-weight: bold;
+}
+
+.add {
+    display: inline-block;
 }
