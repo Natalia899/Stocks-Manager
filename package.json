@@ -25,6 +25,7 @@
     "materialize": "^1.0.0",
     "mongoose": "^5.11.5",
     "request": "^2.88.2",
+    "toam-elevation-npm": "^1.0.2",
     "yahoo-finance": "^0.3.6"
   }
 }
