@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -22,15 +22,15 @@
         <span id='submit'>
             <a class="waves-effect waves-light btn-small">Submit</a></span>
     </div>
-<div id='main-container'>
-    <div id='board-container'></div>
+    <div id='main-container'>
+        <div id='board-container'></div>
 
-    <div id='favorites-container'></div>
+        <div id='favorites-container'></div>
 
-    <div id='graph-container'>
-        <div id='stockInfo-container'></div>
+        <div id='graph-container'>
+            <div id='stockInfo-container'></div>
+        </div>
     </div>
-</div>
     <script id="board-template" type="text/x-handlebars-template">
     <div class='search-container'>
         <input class='stockSearch' type='text' placeholder="Stock name">
@@ -39,16 +39,17 @@
     </script>
 
     <script id="stock-template" type="text/x-handlebars-template">
+        <div class='fv'> <p class='headers'> My favorites:</p>
         {{#each favoriteStocks}} 
      <ul class='usersFavorites'>
-         <li class='favorite'> {{this}}
+         <li class='favorite'> <p class='favoriteName'>{{this}}</p>
             <span class='remove'>
                 <i class="tiny material-icons">remove_circle</i>
             </span>      
         </li>
      </ul>
-        </div>
-      {{/each}}
+     {{/each}} </div>
+    </div>
     </script>
 
     <script id="name-template" type="text/x-handlebars-template">

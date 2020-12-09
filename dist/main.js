@@ -9,8 +9,9 @@ $('#submit').on('click', async () => {
     render.renderFavorites(manager.userFavorites)
 })
 
-$('#favorites-container').on('click', '.favorite', async function () {
+$('#favorites-container').on('click', '.favoriteName', async function () {
     const stockName = $(this).text()
+    console.log(stockName);
     let stockInfo = await manager.getStockInfo(stockName)
     render.renderStockInfo(stockInfo)
 })
@@ -30,7 +31,7 @@ $('#stockInfo-container').on('click', '.add', async function () {
 })
 
 $('#favorites-container').on('click', '.remove', async function () {
-    const stockName = $(this).closest('.favorite').text()
+    const stockName = $(this).closest('.favorite').find('.favoriteName').text()
     console.log(stockName);
     const userId = manager.userId
     let data = await manager.removeFavorite(stockName, userId)
