@@ -11,21 +11,49 @@ const apiKey = 'AN42IASXL414IVFG'
 
 
 // First get stock info-sends monthly closed price of past year => get stock info by time series\\
-router.get('/stock/:stockName', async (req, res) => {
-	const { stockName } = req.params
+router.get('/stock/:stockName/:timeSeries', async (req, res) => {
+	const { stockName, timeSeries } = req.params
 	const stockSymbolSearch = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${stockName}&apikey=${apiKey}`)
 	const stockSymbol = await stockSymbolSearch.data.bestMatches[0][`1. symbol`]
 	const companyName = await stockSymbolSearch.data.bestMatches[0][`2. name`]
-	const stockApi = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${stockSymbol}&apikey=${apiKey}&limit=12&offset=0`)
+	const stockApi = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_${timeSeries}&symbol=${stockSymbol}&apikey=${apiKey}`)
+
+	const stockDaily = await stockApi.data[`Time Series (Daily)`]
+	const days = { Name: companyName, Symbol: stockSymbol, info: [] }
+
+	const stockWeekly = await stockApi.data[`Weekly Time Series`]
+	const weeks = { Name: companyName, Symbol: stockSymbol, info: [] }
+	
 	const stockMonthly = await stockApi.data[`Monthly Time Series`]
-	let months = { Name: companyName, info: [] }
-	for (let i in stockMonthly) {
-		let monthlyClose = { date: i, price: stockMonthly[i][`4. close`] }
-		if (months.info.length < 12) {
-			months.info.push(monthlyClose)
+	const months = { Name: companyName, Symbol: stockSymbol, info: [] }
+	
+	if(timeSeries == 'daily'){
+		for(let i in stockDaily){
+			const dailyClose = {Date: i, Price: stockDaily[i][`4. close`]}
+			if(days.info.length < 5){
+				days.info.push(dailyClose)
+			}
 		}
+		res.send(days)
+
+	}if(timeSeries == 'weekly'){
+		for(let i in stockWeekly){
+			const weeklyClose = {Date: i, Price: stockWeekly[i][`4. close`]} 
+			if(weeks.info.length < 4){
+				weeks.info.push(weeklyClose)
+			}
+		}
+		res.send(weeks)
+
+	}if(timeSeries == 'monthly'){
+		for (let i in stockMonthly) {
+			const monthlyClose = {Date: i, Price: stockMonthly[i][`4. close`] }
+			if (months.info.length < 12) {
+				months.info.push(monthlyClose)
+			}
+		}
+		res.send(months)
 	}
-	res.send(months)
 })
 
 router.get('/stockInfo/:stockName', async (req, res) => {
@@ -49,12 +77,10 @@ router.get('/stockInfo/:stockName', async (req, res) => {
 				"Estimate Year": quote.earnings.earningsChart.currentQuarterEstimateYear
 			}
 	
-			// const dividend = {
-			// 	"dividend yield": quote.summaryDetail.dividendYield,
-			// 	"ex dividend date": quote.summaryDetail.exDividendDate
-			// }
-			// console.log(dividend);
-			// console.log(quote.summaryDetail);
+			const dividend = {
+				"dividend yield": quote.summaryDetail.dividendYield || 0,
+				"ex dividend date": quote.summaryDetail.exDividendDate || 0
+			}
 			
 			const dataPrice = {
 				"current price": quote.summaryDetail.previousClose,
@@ -74,7 +100,7 @@ router.get('/stockInfo/:stockName', async (req, res) => {
 				"sector": quote.summaryProfile.sector,
 				"full Time Employees": quote.summaryProfile.fullTimeEmployees
 			}
-		res.send([companyName, stockSymbol, marketCap, analystsReco3months, quarterEstimate, dataPrice, earnings, companyDetails])
+		res.send({companyName, stockSymbol, marketCap, analystsReco3months, quarterEstimate, dividend, dataPrice, earnings, companyDetails})
 	})
 })
 
