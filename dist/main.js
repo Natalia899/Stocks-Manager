@@ -13,11 +13,14 @@ $('#submit').on('click', async () => {
     }
 })
 
-$('#signIn').on('click', async () => {
+$('#signUp').on('click', async () => {
+    console.log('doooo');
     const username = $('#username').val()
     const password = $('#password').val()
-    const log = await manager.signIn(username, password)
-    
+    const newUser = await manager.signUp(username, password)
+    console.log(newUser);
+    render.renderBoard()
+
 })
 
 $('#favorites-container').on('click', '.favoriteName', async function () {
