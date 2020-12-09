@@ -1,14 +1,14 @@
 
 const manager = new StocksManager()
 const renderm = new Renderer()
-const chart = chartSetup()
+//const chart = chartSetup()
 
 
 $('#submit').on('click', async () => {
     const username = $('#username').val()
     const password = $('#password').val()
-    const userFavorites = await manager.logIn(username, password)
-    if (userFavorites) {
+    const user = await manager.logIn(username, password)
+    if (user) {
         renderm.renderBoard()
         renderm.renderFavorites(manager.userFavorites)
     } else {
@@ -35,11 +35,14 @@ $('#favorites-container').on('click', '.favoriteName', async function () {
 
 $('#board-container').on('click', '.search', async function () {
     const stockName = $(this).closest('.search-container').find('.stockSearch').val()
-    let stockInfo = await manager.getStockInfo(stockName)
-    console.log(stockInfo);
-
-    chart.appendReleventElements("#chart-container")
-    chart.renderChart(stockName, stockInfo.prices, stockInfo.dates)
+    let chartInfo = await manager.getChartInfo(stockName)
+    let generalInfo = await manager.getStockInfo(stockName)
+    console.log(chartInfo);
+    console.log(generalInfo);
+    //renderStockInfo(generalInfo)
+    
+    // chart.appendReleventElements("#chart-container")
+    // chart.renderChart(stockName, stockInfo.prices, stockInfo.dates)
    // render.renderStockInfo(stockInfo)
 })
 
