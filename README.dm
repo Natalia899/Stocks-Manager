@@ -201,3 +201,17 @@ FileSystem
 3. view
 4. creating api calls
 5. css ( LAST )
+
+
+
+Renderer
+  1. render general info (u need to add new template container in html as well)
+  2. rendering chart on the page which include the stock data that using getInfoChart from Manager.js
+  3. render the username and balance + create userinfo-container html
+
+API.js
+   1. checking userName and password
+
+main.js 
+   1. adding instance that rendering the info about the stocks that we searched for. (using getStockInfo)
+   2. 

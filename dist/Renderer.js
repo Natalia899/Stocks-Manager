@@ -6,27 +6,25 @@ class Renderer {
         $('#board-container').append(template)
     }
 
+    renderError() {
+        $('#board-container').append("<p class='error'>Username or password is not correct.Please try again</p>")
+    }
+
     renderFavorites(favoriteStocks) {
         const source = $('#stock-template').html()
         const template = Handlebars.compile(source)
         const data = template({ favoriteStocks })
         $('#favorites-container').empty().append(data)
     }
-
+    
     renderStockInfo(stockInfo) {
-        const source = $('#name-template').html()
+        const source = $('#generalInfo-template').html()
         const template = Handlebars.compile(source)
         const data = template({ stockInfo })
-        $('#stockInfo-container').empty().append(data)
-        //- receives res object with stock info and appends it to html (graph)
+        $('#generalInfo-container').empty().append(data)
     }
 
-    renderError() {
-        $('#board-container').append("<p class='error'>Username or password is not correct.Please try again</p>")
-    }
 
-    renderFavComp(favoritesCompare) {
-        //- receives array with favorites names and close prices and appends it to html (graph)
-    }
+
 
 }
