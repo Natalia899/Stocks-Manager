@@ -2,6 +2,7 @@ class StocksManager {
     constructor() {
         this.userFavorites = []
         this.userId = {}
+        this.userName = ''
     }
 
     async logIn(userName, password) {
@@ -9,11 +10,16 @@ class StocksManager {
         console.log(userFavoritesDb);
         this.userFavorites = userFavoritesDb.userFavorites
         this.userId = userFavoritesDb.userId
+        this.userName = userName
         return this.userFavorites
     }
 
-    signIn(userName, passWord) {
-        $.post(`/login/${userName}/${passWord}`)
+    async signUp(userName, passWord) {
+      let newUser = await $.post(`/login/${userName}/${passWord}`)
+      console.log(newUser);
+      this.userName = userName
+      this.userId = newUser._Id
+      return newUser
     }
 
     async getStockInfo(stockName) {
