@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const axios = require("axios")
 const bcrypt = require('bcrypt')
+const yahooFinance = require('yahoo-finance');
 const User = require("../models/user")
 const FavoriteStock = require("../models/favoriteStocks")
 
@@ -35,6 +36,17 @@ router.get('/login/:userName/:passWord', async (req, res) => {
 			res.send('Password is incorrect')
 		}
 	})
+})
+
+router.post('/login/:userName/:passWord', async (req, res) => {
+	const { userName, passWord } = req.params
+
+	const user = new User({
+		username: userName,
+		password: passWord,
+	})
+	const saveUser = await user.save()
+	res.send(saveUser)
 })
 
 router.put('/stockAdd/:userId/:stockName', async (req, res) => {
