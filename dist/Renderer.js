@@ -5,6 +5,7 @@ class Renderer {
         $('#login-container').empty()
         $('#board-container').append(template)
     }
+
     renderFavorites(favoriteStocks) {
         const source = $('#stock-template').html()
         const template = Handlebars.compile(source)
@@ -18,6 +19,10 @@ class Renderer {
         const data = template({ stockInfo })
         $('#stockInfo-container').empty().append(data)
         //- receives res object with stock info and appends it to html (graph)
+    }
+
+    renderError() {
+        $('#board-container').append("<p class='error'>Username or password is not correct.Please try again</p>")
     }
 
     renderFavComp(favoritesCompare) {

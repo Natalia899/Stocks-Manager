@@ -9,6 +9,11 @@ class StocksManager {
         console.log(userFavoritesDb);
         this.userFavorites = userFavoritesDb.userFavorites
         this.userId = userFavoritesDb.userId
+        return this.userFavorites
+    }
+
+    async signIn(userName, password) {
+        
     }
 
     async getStockInfo(stockName) {
