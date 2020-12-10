@@ -70,7 +70,7 @@
         <div class='fv'> <p class='headers'> My favorites:</p>
         {{#each favoriteStocks}} 
      <ul class='usersFavorites'>
-         <li class='favorite'> <p class='favoriteName'>{{name}}</p>
+         <li class='favorite'> <p class='favoriteName'>{{this}}</p>
             <span class='remove'>
                 <i class="tiny material-icons">remove_circle</i>
             </span>      
@@ -135,6 +135,7 @@
                     <div class="title"></div>
                         <p>Market cap:{{marketCap}} $</p>
                 </div>
+                <button class='addToFavorites'>Add to favorites</button>
         </div>
     
     </script>
