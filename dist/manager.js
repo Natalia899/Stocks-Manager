@@ -3,6 +3,11 @@ class StocksManager {
         this.userFavorites = []
         this.userId = {}
         this.userName = ''
+        this.stockData = {
+            xAxis: [],
+            yAxis: [],
+        };
+
     }
 
     async logIn(userName, password) {
@@ -22,10 +27,25 @@ class StocksManager {
       return newUser
     }
 
-    async getChartInfo(stockName) {
-        let stockInfoForChart = await $.get(`/stock/${stockName}`)
-        return stockInfoForChart
+    async getChartInfo(stockName, time ) {
+        let stockInfoForChart = await $.get(`/stock/${stockName}/${time}`)
+        console.log(stockInfoForChart);
+        for (let i in stockInfoForChart.info) {
+                    this.stockData.xAxis.unshift(stockInfoForChart.info[i].Date);
+                    this.stockData.yAxis.unshift(stockInfoForChart.info[i].Price);
+                }
+                return this.stockData
+       // return stockInfoForChart
     }
+    // async getStockInfo(stockName) {
+    //     let stockInfo = await $.get(`/stock/${stockName}`);
+    //     console.log(stockInfo);
+    //     for (let i in stockInfo.info) {
+    //         this.stockData.xAxis.unshift(stockInfo.info[i].date);
+    //         this.stockData.yAxis.unshift(stockInfo.info[i].price);
+    //     }
+    //     return this.stockData
+    // }
 
     async getStockInfo(stockName) {
         let stockGeneralInfo = await $.get(`/stockInfo/${stockName}`)
@@ -55,9 +75,12 @@ class StocksManager {
         this.userFavorites = newFavorites
     }
 
-    // async compareFavorites(userId) {
-    //     let compStocks = await $.get(`/stocksComp/${userId}`)
-    //     return compStocks
-
-    // }
+    
 }
+
+
+
+
+
+
+
