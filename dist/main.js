@@ -16,7 +16,6 @@ $('#submit').on('click', async () => {
 })
 
 $('#signUp').on('click', async () => {
-    console.log('doooo');
     const username = $('#username').val()
     const password = $('#password').val()
     const newUser = await manager.signUp(username, password)
@@ -28,9 +27,12 @@ $('#signUp').on('click', async () => {
 $('#favorites-container').on('click', '.favoriteName', async function () {
     const stockName = $(this).text()
     console.log(stockName);
-    let stockInfo = await manager.getStockInfo(stockName)
-    console.log(stockInfo);
-    renderm.renderStockInfo(stockInfo)
+    const time = 'weekly'
+    let chartInfo = await manager.getChartInfo(stockName, time)
+    let generalInfo = await manager.getStockInfo(stockName)
+    renderm.renderData(generalInfo, 'generalInfo', 'generalInfo')
+    chart.appendReleventElements("#chart-container");
+    await chart.renderChart(stockName, manager.stockData.yAxis, manager.stockData.xAxis)
 })
 
 $('#board-container').on('click', '.search', async function () {
@@ -38,18 +40,16 @@ $('#board-container').on('click', '.search', async function () {
     const time = 'weekly'
     let chartInfo = await manager.getChartInfo(stockName, time)
     let generalInfo = await manager.getStockInfo(stockName)
-    
-    console.log(generalInfo.analystsReco3months)
-
     renderm.renderData(generalInfo, 'generalInfo', 'generalInfo')
     chart.appendReleventElements("#chart-container");
     await chart.renderChart(stockName, manager.stockData.yAxis, manager.stockData.xAxis);
 })
     
 
-$('#stockInfo-container').on('click', '.add', async function () {
+$('#generalInfo-container').on('click', '.addToFavorites', async function () {
     console.log('add main');
-    const stockName = $(this).closest('#stockInfo-container').find('.name').text()
+    const stockName = $('.search-container').find('.stockSearch').val()
+    console.log('do u add?');
     const userId = manager.userId
     await manager.addFavorite(stockName, userId)
     renderm.renderData({favoriteStocks :manager.userFavorites}, 'stock', 'favorites')
