@@ -22,9 +22,9 @@
         <input id='username' type='text' placeholder="Your name">
         <input id='password' type="password" placeholder="Password">
         <span id='submit'>
-            <a class="waves-effect waves-light btn-small">Sign in</a></span>
+            <a class="waves-effect waves-light btn-small"><i class="material-icons right">assignment_ind</i>Sign In</a></span>
         <span id='signUp'>
-            <a class="waves-effect waves-light btn-small">Sing Up</a></span>
+            <a class="waves-effect waves-light btn-small"><i class="material-icons right" style="font-size: 25px">fiber_new</i>Sign Up</a></span> 
     </div>
     <div id='main-container'>
         <div id='board-container'></div>
@@ -41,7 +41,7 @@
     <script id="board-template" type="text/x-handlebars-template">
                 <div class='search-container'>
                     <input class='stockSearch' type='text' placeholder="Stock name">
-                    <span class='search'> <a class="waves-effect waves-light btn-small">Search</a></span>
+                    <span class='search'> <a class="waves-effect waves-light btn-small"><i class="material-icons right">search</i>Search</a></span>
                 </div>
     </script>
 
@@ -61,9 +61,9 @@
 
     <script id="generalInfo-template" type="text/x-handlebars-template">
         <div class="stockInfo">
-            <ul class="collapsible">
+            <ul class="collapsible popout">
                 <li>
-                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Company Details</div>
+                    <div class="collapsible-header"><i class="material-icons">trending_up</i>Company Details</div>
                     <div class="collapsible-body"><span>
                             <div class="title">Company Details</div>
                             <p>City: {{companyDetails.city}}</p>
@@ -79,11 +79,11 @@
             </ul>
            
                 
-            <ul class="collapsible">
+            <ul class="collapsible popout">
                
               
                 <li>
-                  <div class="collapsible-header"><i class="material-icons">filter_drama</i>Market prices</div>
+                  <div class="collapsible-header"><i class="material-icons">trending_up</i>Market prices</div>
                   <div class="collapsible-body">
                         <span> 52 weeks low: {{dataPrice.52WeeksLow}}</span><br>
                         <span> 52 weeks high: {{dataPrice.52WeeksHigh}}</span><br>
@@ -92,9 +92,9 @@
                 </li>
               </ul>
 
-              <ul class="collapsible">
+              <ul class="collapsible popout">
                 <li>
-                  <div class="collapsible-header"><i class="material-icons">filter_drama</i>Dividend</div>
+                  <div class="collapsible-header"><i class="material-icons">trending_up</i>Dividend</div>
                   <div class="collapsible-body">
                     <span>Dividend yield: {{dividend.dividendYield}}</span><br>
                     <span>Dividend - ex date: {{dividend.exDividendDate}}</span><br>
@@ -102,9 +102,9 @@
                 </li>
                 </ul>
 
-                <ul class="collapsible">
+                <ul class="collapsible popout">
                     <li>
-                      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Analysts Recommendeation</div>
+                      <div class="collapsible-header"><i class="material-icons">trending_up</i>Analysts Recommendeation</div>
                       <div class="collapsible-body">
                         <span> Period: {{analystsReco3months.period}}</span><br>
                         <span> Strong Buy: {{analystsReco3months.strongBuy}}</span><br>
@@ -116,9 +116,9 @@
                     </li>
                 </ul>
                 
-                    <ul class="collapsible">
+                    <ul class="collapsible popout">
                         <li>
-                          <div class="collapsible-header"><i class="material-icons">filter_drama</i>Earnings</div>
+                          <div class="collapsible-header"><i class="material-icons">trending_up</i>Earnings</div>
                           <div class="collapsible-body">
                             <span>Quater: {{earnings.date}}</span><br>
                             <span>Revenue: {{earnings.revenue}}</span><br>
