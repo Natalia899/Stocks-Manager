@@ -14,8 +14,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="./jquery/dist/jquery.js"></script>
 </head>
-
 <body>
     <div id='login-container'>
         <p id='log'>Log In:</p>
@@ -28,7 +28,6 @@
     </div>
     <div id='main-container'>
         <div id='board-container'></div>
-
         <div id='favorites-container'></div>
 
 
@@ -37,31 +36,11 @@
   
 
     <div id="generalInfo-container"> </div>
-
     <div id="chart-container"></div>
 </div>
     <script id="board-template" type="text/x-handlebars-template">
                 <div class='search-container'>
                     <input class='stockSearch' type='text' placeholder="Stock name">
-
-
-                    
-  <!-- <div class="input-field col s12">
-    <select>
-      <option value="" disabled selected>Choose your option</option>
-      <option value="1">monthly</option>
-      <option value="2">weekly</option>
-      <option value="3">daily</option>
-    </select>
-    <label>Materialize Select</label>
-  </div> -->
-
-                           <!-- <select name="times" id="times">
-                               <option value="monthly">Monthly</option>
-                               <option value="weekly">Weekly</option>
-                               <option value="daily">Daily</option>
-                            </select> -->
-                    
                     <span class='search'> <a class="waves-effect waves-light btn-small">Search</a></span>
                 </div>
     </script>
@@ -69,82 +48,104 @@
     <script id="stock-template" type="text/x-handlebars-template">
         <div class='fv'> <p class='headers'> My favorites:</p>
         {{#each favoriteStocks}} 
-     <ul class='usersFavorites'>
-         <li class='favorite'> <p class='favoriteName'>{{this}}</p>
-            <span class='remove'>
-                <i class="tiny material-icons">remove_circle</i>
-            </span>      
-        </li>
-     </ul>
-     {{/each}}
+    <ul class='usersFavorites'>
+        <li class='favorite'> <p class='favoriteName'>{{this.name}}</p>
+           <span class='remove'>
+               <i class="tiny material-icons">remove_circle</i>
+           </span>      
+       </li>
+    </ul>
+         {{/each}}
      </div>
     </script>
 
     <script id="generalInfo-template" type="text/x-handlebars-template">
         <div class="stockInfo">
-            
-                <div class="CompanyDetails">
-                    <div class="title">Company Details</div>
-                        <p>City: {{companyDetails.city}}</p>
-                        <p>Country: {{companyDetails.country}}</p>
-                        <p>Full time employees: {{companyDetails.fullTimeEmployees}}</p>
-                        <p>Industry: {{companyDetails.industry}}</p>
-                        <p>Phone: {{companyDetails.phone}}</p>
-                        <p>Sector: {{companyDetails.sector}}</p>
-                        <a href={{companyDetails.website}}>Website link: {{companyDetails.website}}</a>
-                </div>
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Company Details</div>
+                    <div class="collapsible-body"><span>
+                            <div class="title">Company Details</div>
+                            <p>City: {{companyDetails.city}}</p>
+                            <p>Country: {{companyDetails.country}}</p>
+                            <p>Full time employees: {{companyDetails.fullTimeEmployees}}</p>
+                            <p>Industry: {{companyDetails.industry}}</p>
+                            <p>Phone: {{companyDetails.phone}}</p>
+                            <p>Sector: {{companyDetails.sector}}</p>
+                            <a href={{companyDetails.website}}>Website link: {{companyDetails.website}}</a>
+                        </span>
+                    </div>
+                </li>
+            </ul>
+           
+                
+            <ul class="collapsible">
+               
+              
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">filter_drama</i>Market prices</div>
+                  <div class="collapsible-body">
+                        <span> 52 weeks low: {{dataPrice.52WeeksLow}}</span><br>
+                        <span> 52 weeks high: {{dataPrice.52WeeksHigh}}</span><br>
+                        <span> Current price: {{dataPrice.currentPrice}}</span><br>
+                  </div>
+                </li>
+              </ul>
 
-                <div class="dataPrice">
-                    <div class="title">Prices</div>
-                        <p>52 weeks low: {{dataPrice.52WeeksLow}}</p>
-                        <p>52 weeks high: {{dataPrice.52WeeksHigh}}</p>
-                        <p>Current price: {{dataPrice.currentPrice}}</p>
-                </div>
+              <ul class="collapsible">
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">filter_drama</i>Dividend</div>
+                  <div class="collapsible-body">
+                    <span>Dividend yield: {{dividend.dividendYield}}</span><br>
+                    <span>Dividend - ex date: {{dividend.exDividendDate}}</span><br>
+                  </div>
+                </li>
+                </ul>
 
-                <div class="dividend">
-                    <div class="title">Dividends</div>
-                        <p>Dividend yield: {{dividend.dividendYield}}</p>
-                        <p>Dividend - ex date: {{dividend.exDividendDate}}</p>
-                </div>
-
-                <div class="analystsReco3months">
-                    <div class="title">Analysts Recommendeation</div>
-                        <p>Period: {{analystsReco3months.period}}</p>
-                        <p>Strong Buy: {{analystsReco3months.strongBuy}}</p>
-                        <p>Buy: {{analystsReco3months.buy}}</p>
-                        <p>Hold: {{analystsReco3months.hold}}</p>
-                        <p>sell: {{analystsReco3months.sell}}</p>
-                        <p>Strong Sell: {{analystsReco3months.strongSell}}</p>
-                </div>
-
-                <div class="earnings">
-                    <div class="title">Earnings</div>
-                        <p>Quater: {{earnings.date}}</p>
-                        <p>Revenue: {{earnings.revenue}}</p>
-                        <p>Earnings: {{earnings.earnings}}</p>
-                </div>
-
-                <div class="quarterEstimate">
-                    <div class="title"></div>
-                        <p>Estimate date: {{quarterEstimate.estimateDate}}</p>
-                        <p>Estimate year: {{quarterEstimate.estimateYear}}</p>
-                        <p>Estimate date: {{quarterEstimate.quarterEstimate}}</p>
-                </div>
-
+                <ul class="collapsible">
+                    <li>
+                      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Analysts Recommendeation</div>
+                      <div class="collapsible-body">
+                        <span> Period: {{analystsReco3months.period}}</span><br>
+                        <span> Strong Buy: {{analystsReco3months.strongBuy}}</span><br>
+                        <span> Buy: {{analystsReco3months.buy}}</span><br>
+                        <span> Hold: {{analystsReco3months.hold}}</span><br>
+                        <span> sell: {{analystsReco3months.sell}}</span><br>
+                        <span> Strong Sell: {{analystsReco3months.strongSell}}</span><br>
+                      </div>
+                    </li>
+                </ul>
+                
+                    <ul class="collapsible">
+                        <li>
+                          <div class="collapsible-header"><i class="material-icons">filter_drama</i>Earnings</div>
+                          <div class="collapsible-body">
+                            <span>Quater: {{earnings.date}}</span><br>
+                            <span>Revenue: {{earnings.revenue}}</span><br>
+                            <span>Earnings: {{earnings.earnings}}</span><br>
+                          </div>
+                        </li>
+                    </ul>
+                    
                 <div class="marketCap">
                     <div class="title"></div>
-                        <p>Market cap:{{marketCap}} $</p>
+                        <p style="font-size: 3em; font-weight: bold;" >Market cap: {{marketCap}} $</p>
                 </div>
                 <button class='addToFavorites'>Add to favorites</button>
         </div>
-    
+        <script>
+            $(".stockInfo").ready(function(){
+            $('.collapsible').collapsible();
+            })
+       </script>
+
     </script>
 
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src='./handlebars/dist/handlebars.js'></script>
-    <script src="./jquery/dist/jquery.js"></script>
+    
     <script src='./toam-elevation-npm/Index.js'></script>
     <script src='manager.js'></script>
     <script src='Renderer.js'></script>
