@@ -19,12 +19,8 @@ body {
     gap: 20px;
     grid-template-areas: 
     "b b b b b b"
-    "f f f f f f"
-    "f f f f f f"
+    "g g g g g f"
     "c c c c c c"
-     "c c c c c c"
-     "g g g g g g"
-     "g g g g g g"
                         
 }
 #board-container{
