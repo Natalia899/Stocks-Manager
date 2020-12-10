@@ -4,63 +4,57 @@ const axios = require("axios")
 const bcrypt = require('bcrypt')
 const yahooFinance = require('yahoo-finance');
 const User = require("../models/user")
-const FavoriteStock = require("../models/favoriteStocks")
-
-
 const apiKey = 'AN42IASXL414IVFG'
 
 
-// First get stock info-sends monthly closed price of past year => get stock info by time series\\
+const urlStockSymbol = function (stockName, apiKey) {
+	return `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${stockName}&apikey=${apiKey}`
+}
+
+const urlStockApi = function (timeSeries, stockSymbol, apiKey)  {
+	return `https://www.alphavantage.co/query?function=TIME_SERIES_${timeSeries}&symbol=${stockSymbol}&apikey=${apiKey}`
+}
+
+
 router.get('/stock/:stockName/:timeSeries', async (req, res) => {
 	const { stockName, timeSeries } = req.params
-	const stockSymbolSearch = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${stockName}&apikey=${apiKey}`)
+	const stockSymbolSearch = await axios.get(urlStockSymbol(stockName, apiKey))
 	const stockSymbol = await stockSymbolSearch.data.bestMatches[0][`1. symbol`]
 	const companyName = await stockSymbolSearch.data.bestMatches[0][`2. name`]
-	const stockApi = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_${timeSeries}&symbol=${stockSymbol}&apikey=${apiKey}`)
+	const stockApi = await axios.get(urlStockApi(timeSeries, stockSymbol, apiKey))
 
 	const stockDaily = await stockApi.data[`Time Series (Daily)`]
 	const days = { Name: companyName, Symbol: stockSymbol, info: [] }
 
 	const stockWeekly = await stockApi.data[`Weekly Time Series`]
 	const weeks = { Name: companyName, Symbol: stockSymbol, info: [] }
-	
+
 	const stockMonthly = await stockApi.data[`Monthly Time Series`]
 	const months = { Name: companyName, Symbol: stockSymbol, info: [] }
-	
-	if(timeSeries == 'daily'){
-		for(let i in stockDaily){
-			const dailyClose = {Date: i, Price: stockDaily[i][`4. close`]}
-			if(days.info.length < 5){
-				days.info.push(dailyClose)
-			}
-		}
-		res.send(days)
 
-	}if(timeSeries == 'weekly'){
-		console.log('i am hereeeeee');
-		for(let i in stockWeekly){
-			const weeklyClose = {Date: i, Price: stockWeekly[i][`4. close`]} 
-			if(weeks.info.length < 4){
-				weeks.info.push(weeklyClose)
+	const timeSeriesFun = function (statment, stockTime, timeClose, num, time) {
+		try {
+			if (timeSeries == statment) {
+				for (let i in stockTime) {
+					timeClose = { Date: i, Price: stockTime[i][`4. close`] }
+					if (time.info.length < num) {
+						time.info.push(timeClose)
+					}
+				}
+				res.status(200).json(time)
 			}
+		} catch (err) {
+			res.status(404).json(err)
 		}
-		
-		res.send(weeks)
-
-	}if(timeSeries == 'monthly'){
-		for (let i in stockMonthly) {
-			const monthlyClose = {Date: i, Price: stockMonthly[i][`4. close`] }
-			if (months.info.length < 12) {
-				months.info.push(monthlyClose)
-			}
-		}
-		res.send(months)
 	}
+	timeSeriesFun("daily", stockDaily, 'dailyClose', 5, days)
+	timeSeriesFun('weekly', stockWeekly, 'weeklyClose', 4, weeks)
+	timeSeriesFun('monthly', stockMonthly, 'monthlyClose', 12, months)
 })
 
 router.get('/stockInfo/:stockName', async (req, res) => {
 	const { stockName } = req.params
-	const stockSymbolSearch = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${stockName}&apikey=${apiKey}`)
+	const stockSymbolSearch = await axios.get(urlStockSymbol(stockName, apiKey))
 	const stockSymbol = await stockSymbolSearch.data.bestMatches[0][`1. symbol`]
 	const companyName = await stockSymbolSearch.data.bestMatches[0][`2. name`]
 	
