@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const FavoriteStock = require("../models/favoriteStocks")
 const Schema = mongoose.Schema
 
 const bcrypt = require('bcrypt')

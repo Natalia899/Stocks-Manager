@@ -22,7 +22,11 @@
         <input id='username' type='text' placeholder="Your name">
         <input id='password' type="password" placeholder="Password">
         <span id='submit'>
+<<<<<<< HEAD
             <a class="waves-effect waves-light btn-small">Log in</a></span>
+=======
+            <a class="waves-effect waves-light btn-small">Sign in</a></span>
+>>>>>>> a5a64b15f9a2cba824b3345cdd17ce029c0f453d
         <span id='signUp'>
             <a class="waves-effect waves-light btn-small">Sing Up</a></span>
     </div>
@@ -31,12 +35,24 @@
 
         <div id='favorites-container'></div>
 
+<<<<<<< HEAD
         <div id='graph-container'></div>
 
         <div id='generalInfo-container'></div>
     
         <div id="chart-container"></div>
     </div>
+=======
+
+
+
+    </div>
+
+    <div id="generalInfo-container"> </div>
+
+    <div id="chart-container"></div>
+
+>>>>>>> a5a64b15f9a2cba824b3345cdd17ce029c0f453d
     <script id="board-template" type="text/x-handlebars-template">
                 <div class='search-container'>
                     <input class='stockSearch' type='text' placeholder="Stock name">
@@ -67,20 +83,74 @@
         <div class='fv'> <p class='headers'> My favorites:</p>
         {{#each favoriteStocks}} 
      <ul class='usersFavorites'>
-         <li class='favorite'> <p class='favoriteName'>{{this}}</p>
+         <li class='favorite'> <p class='favoriteName'>{{name}}</p>
             <span class='remove'>
                 <i class="tiny material-icons">remove_circle</i>
             </span>      
         </li>
      </ul>
-     {{/each}} </div>
-    </div>
+     {{/each}}
+     </div>
     </script>
 
     <script id="generalInfo-template" type="text/x-handlebars-template">
-        
-    </script>
+        <div class="stockInfo">
+            
+                <div class="CompanyDetails">
+                    <div class="title">Company Details</div>
+                        <p>City: {{companyDetails.city}}</p>
+                        <p>Country: {{companyDetails.country}}</p>
+                        <p>Full time employees: {{companyDetails.fullTimeEmployees}}</p>
+                        <p>Industry: {{companyDetails.industry}}</p>
+                        <p>Phone: {{companyDetails.phone}}</p>
+                        <p>Sector: {{companyDetails.sector}}</p>
+                        <a href={{companyDetails.website}}>Website link: {{companyDetails.website}}</a>
+                </div>
 
+                <div class="dataPrice">
+                    <div class="title">Prices</div>
+                        <p>52 weeks low: {{dataPrice.52WeeksLow}}</p>
+                        <p>52 weeks high: {{dataPrice.52WeeksHigh}}</p>
+                        <p>Current price: {{dataPrice.currentPrice}}</p>
+                </div>
+
+                <div class="dividend">
+                    <div class="title">Dividends</div>
+                        <p>Dividend yield: {{dividend.dividendYield}}</p>
+                        <p>Dividend - ex date: {{dividend.exDividendDate}}</p>
+                </div>
+
+                <div class="analystsReco3months">
+                    <div class="title">Analysts Recommendeation</div>
+                        <p>Period: {{analystsReco3months.period}}</p>
+                        <p>Strong Buy: {{analystsReco3months.strongBuy}}</p>
+                        <p>Buy: {{analystsReco3months.buy}}</p>
+                        <p>Hold: {{analystsReco3months.hold}}</p>
+                        <p>sell: {{analystsReco3months.sell}}</p>
+                        <p>Strong Sell: {{analystsReco3months.strongSell}}</p>
+                </div>
+
+                <div class="earnings">
+                    <div class="title">Earnings</div>
+                        <p>Quater: {{earnings.date}}</p>
+                        <p>Revenue: {{earnings.revenue}}</p>
+                        <p>Earnings: {{earnings.earnings}}</p>
+                </div>
+
+                <div class="quarterEstimate">
+                    <div class="title"></div>
+                        <p>Estimate date: {{quarterEstimate.estimateDate}}</p>
+                        <p>Estimate year: {{quarterEstimate.estimateYear}}</p>
+                        <p>Estimate date: {{quarterEstimate.quarterEstimate}}</p>
+                </div>
+
+                <div class="marketCap">
+                    <div class="title"></div>
+                        <p>Market cap:{{marketCap}} $</p>
+                </div>
+        </div>
+    
+    </script>
 
 
 
