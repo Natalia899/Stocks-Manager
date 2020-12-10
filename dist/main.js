@@ -34,14 +34,13 @@ $("#submit").on("click", async () => {
 	}
 });
 
-$("#signUp").on("click", async () => {
-	console.log("doooo");
-	const username = $("#username").val();
-	const password = $("#password").val();
-	const newUser = await manager.signUp(username, password);
-	console.log(newUser);
-	renderm.renderBoard();
-});
+$('#signUp').on('click', async () => {
+    const username = $('#username').val()
+    const password = $('#password').val()
+    const newUser = await manager.signUp(username, password)
+    console.log(newUser);
+    renderm.renderBoard()
+})
 
 $("#favorites-container").on("click", ".favoriteName", async function () {
 	const stockName = $(this).text();

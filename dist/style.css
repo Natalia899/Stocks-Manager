@@ -16,10 +16,16 @@ body {
     display: grid;
     min-height: 600px;
     grid-template-columns: repeat (6, 1fr);
-    grid-template-areas: "b b b b b b"
-                        "g g g g g f"
-                        "g g g g g f"
-                        "g g g g g f"
+    gap: 20px;
+    grid-template-areas: 
+    "b b b b b b"
+    "f f f f f f"
+    "f f f f f f"
+    "c c c c c c"
+     "c c c c c c"
+     "g g g g g g"
+     "g g g g g g"
+                        
 }
 #board-container{
     grid-area: b;
@@ -29,10 +35,18 @@ body {
     border: solid rgb(92, 103, 125) 3px;
     border-radius: 5px;
     color: rgb(51, 65, 92);
+    min-width: 200px;
+    display:grid;
+    justify-content: center;
+
     
 }
-#graph-container {
+#generalInfo-container {
     grid-area: g; 
+}
+
+#chart-container {
+    grid-area: c; 
 }
 
 .headers {
