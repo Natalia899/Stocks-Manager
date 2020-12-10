@@ -78,8 +78,3 @@ $("#favorites-container").on("click", ".remove", async function () {
 	let data = await manager.removeFavorite(stockName, userId);
 	renderm.renderData({ favoriteStocks: manager.userFavorites }, "stock", "favorites");
 });
-
-$('#types-container').on("click", "#type-button",async () => {
-    const inputVal = $(this).closest("#types-container").find('#time').val()
-    console.log(inputVal);
-})
