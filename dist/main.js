@@ -80,6 +80,7 @@ $("#favorites-container").on("click", ".remove", async function () {
 });
 
 $('#types-container').on("click", "#type-button",async () => {
-    const inputVal = $(this).closest("#types-container").find('#time').val()
+    const inputVal = $(this).closest("#types-container").find('#time').attr("value")
     console.log(inputVal);
+    
 })
