@@ -1,4 +1,3 @@
-
 const manager = new StocksManager()
 const renderm = new Renderer()
 const chart = chartSetup()
@@ -10,7 +9,7 @@ $('#submit').on('click', async () => {
     const user = await manager.logIn(username, password)
     if (user) {
         renderm.renderBoard()
-        renderm.renderFavorites(manager.userFavorites)
+        renderm.renderData({favoriteStocks :manager.userFavorites}, 'stock', 'favorites')
     } else {
         renderm.renderError()
     }
@@ -30,6 +29,7 @@ $('#favorites-container').on('click', '.favoriteName', async function () {
     const stockName = $(this).text()
     console.log(stockName);
     let stockInfo = await manager.getStockInfo(stockName)
+    console.log(stockInfo);
     renderm.renderStockInfo(stockInfo)
 })
 
@@ -38,29 +38,21 @@ $('#board-container').on('click', '.search', async function () {
     const time = 'weekly'
     let chartInfo = await manager.getChartInfo(stockName, time)
     let generalInfo = await manager.getStockInfo(stockName)
-        await manager.getStockInfo(stockName);
-        chart.appendReleventElements("#chart-container");
-        await chart.renderChart(stockName, manager.stockData.yAxis, manager.stockData.xAxis);
-    })
     
-    //const timeSeria = $(this).
-   // let chartInfo = await manager.getChartInfo(stockName, timeSeria)
-    //let generalInfo = await manager.getStockInfo(stockName)
-    // console.log(chartInfo);
-    // console.log(generalInfo);
-    //renderStockInfo(generalInfo)
+    console.log(generalInfo.analystsReco3months)
+
+    renderm.renderData(generalInfo, 'generalInfo', 'generalInfo')
+    chart.appendReleventElements("#chart-container");
+    await chart.renderChart(stockName, manager.stockData.yAxis, manager.stockData.xAxis);
+})
     
-    // chart.appendReleventElements("#chart-container")
-    // chart.renderChart(stockName, stockInfo.prices, stockInfo.dates)
-   // render.renderStockInfo(stockInfo)
-//})
 
 $('#stockInfo-container').on('click', '.add', async function () {
     console.log('add main');
     const stockName = $(this).closest('#stockInfo-container').find('.name').text()
     const userId = manager.userId
     await manager.addFavorite(stockName, userId)
-    render.renderFavorites(manager.userFavorites)
+    renderm.renderData({favoriteStocks :manager.userFavorites}, 'stock', 'favorites')
 
 })
 
@@ -69,7 +61,7 @@ $('#favorites-container').on('click', '.remove', async function () {
     console.log(stockName);
     const userId = manager.userId
     let data = await manager.removeFavorite(stockName, userId)
-    render.renderFavorites(manager.userFavorites)
+    renderm.renderData({favoriteStocks :manager.userFavorites}, 'stock', 'favorites')
 })
 
 

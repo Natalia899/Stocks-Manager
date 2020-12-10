@@ -68,20 +68,20 @@ router.get('/stockInfo/:stockName', async (req, res) => {
 			const analystsReco3months = quote.recommendationTrend.trend[3]
 
 			const quarterEstimate = {
-				"Quarter Estimate": quote.earnings.earningsChart.currentQuarterEstimate,
-				"Estimate Date": quote.earnings.earningsChart.currentQuarterEstimateDate,
-				"Estimate Year": quote.earnings.earningsChart.currentQuarterEstimateYear
+				"quarter Estimate": quote.earnings.earningsChart.currentQuarterEstimate,
+				"estimate Date": quote.earnings.earningsChart.currentQuarterEstimateDate,
+				"estimate Year": quote.earnings.earningsChart.currentQuarterEstimateYear
 			}
 	
 			const dividend = {
-				"dividend yield": quote.summaryDetail.dividendYield || 0,
-				"ex dividend date": quote.summaryDetail.exDividendDate || 0
+				"dividendYield": quote.summaryDetail.dividendYield || 0,
+				"exDividendDate": quote.summaryDetail.exDividendDate || 0
 			}
 			
 			const dataPrice = {
-				"current price": quote.summaryDetail.previousClose,
-				"52 weeks low": quote.summaryDetail.fiftyTwoWeekLow,
-				"52 weeks high": quote.summaryDetail.fiftyTwoWeekHigh
+				"currentPrice": quote.summaryDetail.previousClose,
+				"52WeeksLow": quote.summaryDetail.fiftyTwoWeekLow,
+				"52WeeksHigh": quote.summaryDetail.fiftyTwoWeekHigh
 			}
 			
 			const earnings = quote.earnings.financialsChart.quarterly[3]
@@ -94,7 +94,7 @@ router.get('/stockInfo/:stockName', async (req, res) => {
 				"website": quote.summaryProfile.website,
 				"industry": quote.summaryProfile.industry,
 				"sector": quote.summaryProfile.sector,
-				"full Time Employees": quote.summaryProfile.fullTimeEmployees
+				"fullTimeEmployees": quote.summaryProfile.fullTimeEmployees
 			}
 		res.send({companyName, stockSymbol, marketCap, analystsReco3months, quarterEstimate, dividend, dataPrice, earnings, companyDetails})
 	})
