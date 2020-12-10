@@ -16,6 +16,7 @@ class StocksManager {
         this.userFavorites = user.favorites
         this.userId = user._id
         this.userName = user.username
+        console.log(this.userFavorites)
         return this.userFavorites
     }
 
