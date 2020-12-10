@@ -17,7 +17,6 @@ $('#submit').on('click', async () => {
 })
 
 $('#signUp').on('click', async () => {
-    console.log('doooo');
     const username = $('#username').val()
     const password = $('#password').val()
     const newUser = await manager.signUp(username, password)
@@ -29,8 +28,13 @@ $('#signUp').on('click', async () => {
 $('#favorites-container').on('click', '.favoriteName', async function () {
     const stockName = $(this).text()
     console.log(stockName);
-    let stockInfo = await manager.getStockInfo(stockName)
-    renderm.renderStockInfo(stockInfo)
+    const time = 'weekly'
+    let chartInfo = await manager.getChartInfo(stockName, time)
+    let generalInfo = await manager.getStockInfo(stockName)
+    console.log(generalInfo);
+        await manager.getStockInfo(stockName);
+        chart.appendReleventElements("#chart-container");
+        await chart.renderChart(stockName, manager.stockData.yAxis, manager.stockData.xAxis);
 })
 
 $('#board-container').on('click', '.search', async function () {
@@ -38,6 +42,7 @@ $('#board-container').on('click', '.search', async function () {
     const time = 'weekly'
     let chartInfo = await manager.getChartInfo(stockName, time)
     let generalInfo = await manager.getStockInfo(stockName)
+    console.log(generalInfo);
         await manager.getStockInfo(stockName);
         chart.appendReleventElements("#chart-container");
         await chart.renderChart(stockName, manager.stockData.yAxis, manager.stockData.xAxis);
